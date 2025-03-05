@@ -1,3 +1,4 @@
+<!-- File: homework2/movie_theater_booking/bookings/templates/bookings/base.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,11 +10,20 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="{% url 'movie_list' %}">Movie Theater Goes Name Here <--</a>
-            <a class="navbar-brand" href="{% url 'movie_list' %}">Movies</a>
+            <a class="navbar-brand" href="{% url 'movie_list' %}">Movie Theater</a>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="{% url 'booking_history' %}">Booking History</a></li>
+                    {% if user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'booking_history' %}">Booking History</a></li>
+                        <li class="nav-item">
+                            <form method="post" action="{% url 'logout' %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-link nav-link" style="display: inline; padding: 0;">Logout</button>
+                            </form>
+                        </li>
+                    {% else %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>

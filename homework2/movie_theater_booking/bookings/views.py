@@ -3,6 +3,9 @@ from .models import Movie, Seat, Booking
 from .serializers import MovieSerializer, SeatSerializer, BookingSerializer
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.forms import UserCreationForm
+from django.urls import reverse_lazy
+from django.views import generic
 
 
 class MovieViewSet(viewsets.ModelViewSet):
@@ -47,3 +50,9 @@ def book_seat(request, movie_id):
 def booking_history(request):
     bookings = Booking.objects.filter(user=request.user)
     return render(request, 'bookings/booking_history.html', {'bookings': bookings})
+
+
+class RegisterView(generic.CreateView):
+    form_class = UserCreationForm
+    success_url = reverse_lazy('login')
+    template_name = 'bookings/register.html'

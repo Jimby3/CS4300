@@ -1,0 +1,15 @@
+<!-- File: homework2/movie_theater_booking/bookings/templates/bookings/register.html -->
+{% extends "bookings/base.html" %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Register</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+</div>
+{% endblock %}
